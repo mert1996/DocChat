@@ -1,4 +1,3 @@
-# weaviate_client.py
 import weaviate
 from config import WEAVIATE_URL, WEAVIATE_API_KEY, OPENAI_API_KEY
 
@@ -52,14 +51,14 @@ class WeaviateExecuter:
         existing_classes = [c["class"] for c in client.schema.get()["classes"]]
         if self.CLASS_NAME not in existing_classes:
             client.schema.create(schema)
-            print(f"'{self.CLASS_NAME}' sınıfı Weaviate'a başarıyla eklendi!")
+            print(f"'{self.CLASS_NAME}' class is added to Weaviate successfully!")
         else:
-            print(f"'{self.CLASS_NAME}' sınıfı zaten Weaviate'da mevcut.")
+            print(f"'{self.CLASS_NAME}' class is already exist.")
 
     def delete_schema(self):
         client = self.connect_client()
         client.schema.delete_all()
-        print("Weaviate'daki tüm sınıflar silindi!")
+        print("All classes in Weaviate have been deleted successfully.")
 
     def upload_chunks(self, chunks, doc_name):
         client = self.connect_client()
@@ -75,7 +74,7 @@ class WeaviateExecuter:
                     data_object=data,
                     class_name=self.CLASS_NAME
                 )
-        print(f"{doc_name} adlı belge başarıyla yüklendi.")
+        print(f"{doc_name} chunks are uploaded to Weaviate successfully!")
 
     def semantic_search(self, query_text, top_k=3):
         client = self.connect_client()

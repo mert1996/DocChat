@@ -15,7 +15,7 @@ if "messages" not in st.session_state:
 st.sidebar.header("Upload document")
 uploaded_file = st.sidebar.file_uploader("Please upload a .docx file", type=["docx"])
 if st.sidebar.button("Create Schema", on_click=WeaviateExecuter().recreate_schema):
-    st.sidebar.write("Mevcut Weaviate şeması silindi ve tekrardan oluşturuldu.")
+    st.sidebar.write("Schema created successfully!")
 
 if uploaded_file is not None:
     with st.spinner("Document is being processed. Please wait..."):
@@ -47,6 +47,3 @@ if user_input:
     st.session_state.messages.append({"role": "assistant", "content": answer})
     with st.chat_message("assistant"):
         st.markdown(answer)
-
-# https://z9hpaeuqtussmgbg0pdha.c0.europe-west3.gcp.weaviate.cloud
-# ThmMpPVE17d7KJGa2BSqWe3u9m3RtNxGJr9t

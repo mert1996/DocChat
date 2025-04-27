@@ -17,43 +17,43 @@ def generate_answer(user_query):
             "docName": document_name
         })
 
-    # Yeni prompt metni:
     prompt = f"""
-    Aşağıda, kullanıcı sorusuyla ilgili olabileceğini düşündüğümüz en fazla üç (3) adet referans bilgi bulunmaktadır. 
-    Bu metinler, kullanıcının sorusuna yanıt vermek için kullanabileceğin başlıca kaynaklardır.
 
-    Kurallar:
-    1. Cevabında YALNIZCA bu referans metinlerde yer alan bilgilere dayan.
-    2. Referans metinlerdeki bilgileri özetlemen gerekiyorsa özetleyebilirsin, ancak doğruluk payından emin ol.
-    3. Referans metinlerde olmayan hiçbir bilgiyi ekleme veya varsayımda bulunma.
-    4. Referans metinlerde soruyu karşılayacak yeterli bilgi yoksa, bu bilgilerin yetersiz olduğunu belirt.
-    5. Cevabı, kullanıcının sorduğu dilde veya uygun gördüğün dilde tutarlı şekilde oluştur.
-    
-    Referans Alınacaklar:
-    1)
-    Döküman adı: {context_texts[0]["docName"]}
-    Döküman içeriği: {context_texts[0]["content"] if len(context_texts) > 0 else "—"}
-    
-    2)
-    Döküman adı: {context_texts[1]["docName"]}
-    Döküman içeriği:  {context_texts[1]["content"] if len(context_texts) > 1 else "—"}
-    
-    3)
-    Döküman adı: {context_texts[2]["docName"]}
-    Döküman içeriği: {context_texts[2]["content"] if len(context_texts) > 2 else "—"}
+        Below are up to three (3) reference pieces of information that may be relevant to the user's question.
+        These texts are the primary sources you should use to generate your answer.
 
-    Kullanıcının Sorduğu Soru: {user_query}
+        Rules:
+        1. Base your answer ONLY on the information contained in these reference texts.
+        2. If necessary, you can summarize the reference texts, but ensure the accuracy of the information.
+        3. Do not add any information or make assumptions beyond what is included in the references.
+        4. If the references do not provide sufficient information to answer the question, clearly state that the information is insufficient.
+        5. Formulate your answer consistently in the language of the user's question or in a language you deem appropriate.
 
-    Şimdi lütfen, yukarıdaki kurallara ve referans metinlere sadık kalarak nihai cevabını ver. Verdiğin cevaplarda 
-    samimi bir dil kullan. Her zaman kibar ol ve kullanıcının sorusunu mümkün olduğunca doğru ve net bir şekilde 
-    yanıtla.
-    """
+        References:
+        1)
+        Document name: {context_texts[0]["docName"]}
+        Document content: {context_texts[0]["content"] if len(context_texts) > 0 else "—"}
+
+        2)
+        Document name: {context_texts[1]["docName"]}
+        Document content: {context_texts[1]["content"] if len(context_texts) > 1 else "—"}
+
+        3)
+        Document name: {context_texts[2]["docName"]}
+        Document content: {context_texts[2]["content"] if len(context_texts) > 2 else "—"}
+
+        User's Question: {user_query}
+
+        Now, please generate your final answer strictly based on the above rules and references. 
+        Use a friendly and polite tone in your response. Always aim to answer the user's question as accurately and clearly as possible.
+        """
 
     # print(prompt)
     response = openai.ChatCompletion.create(
         model=GPT_MODEL_NAME,
         messages=[
-            {"role": "system", "content": "Sen bir yapay zeka asistanısın. Kullanıcı sorularını mümkün olduğunca doğru ve net cevaplamalısın."},
+            {"role": "system", "content": "You are an AI assistant. You must answer user questions as accurately and clearly as possible."},
+
             {"role": "user", "content": prompt}
         ],
         temperature=0.3,

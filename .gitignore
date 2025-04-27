@@ -1,0 +1,27 @@
+# Python cache dosyaları
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment klasörleri
+.venv/
+venv/
+env/
+
+# IDE dosyaları (PyCharm, VSCode vs.)
+.vscode/
+.idea/
+
+# Çalışma dosyaları
+temp_uploaded.docx
+
+# Ortaya çıkan log dosyaları
+*.log
+
+# Environment dosyası (API Key'ler gizli olmalı!)
+.env
+
+# Streamlit cache dosyaları
+.streamlit/
+
+# Eğer pip freeze ile requirements.txt oluşturduysan onu eklemene gerek yok!
